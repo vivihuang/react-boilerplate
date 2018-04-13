@@ -10,11 +10,7 @@ import getInjectors, {
   injectSagaFactory,
   ejectSagaFactory,
 } from '../sagaInjectors';
-import {
-  DAEMON,
-  ONCE_TILL_UNMOUNT,
-  RESTART_ON_REMOUNT,
-} from '../constants';
+import { DAEMON, ONCE_TILL_UNMOUNT, RESTART_ON_REMOUNT } from '../constants';
 
 function* testSaga() {
   yield put({ type: 'TEST', payload: 'yup' });
@@ -65,7 +61,7 @@ describe('injectors', () => {
       expect(() => ejectSaga('test')).not.toThrow();
     });
 
-    it('should validate saga\'s key', () => {
+    it("should validate saga's key", () => {
       expect(() => ejectSaga('')).toThrow();
       expect(() => ejectSaga(1)).toThrow();
     });
@@ -90,7 +86,7 @@ describe('injectors', () => {
       expect(() => ejectSaga('test')).not.toThrow();
     });
 
-    it('should remove non daemon saga\'s descriptor in production', () => {
+    it("should remove non daemon saga's descriptor in production", () => {
       process.env.NODE_ENV = 'production';
       injectSaga('test', { saga: testSaga, mode: RESTART_ON_REMOUNT });
       injectSaga('test1', { saga: testSaga, mode: ONCE_TILL_UNMOUNT });
@@ -103,7 +99,7 @@ describe('injectors', () => {
       process.env.NODE_ENV = originalNodeEnv;
     });
 
-    it('should not remove daemon saga\'s descriptor in production', () => {
+    it("should not remove daemon saga's descriptor in production", () => {
       process.env.NODE_ENV = 'production';
       injectSaga('test', { saga: testSaga, mode: DAEMON });
       ejectSaga('test');
@@ -112,7 +108,7 @@ describe('injectors', () => {
       process.env.NODE_ENV = originalNodeEnv;
     });
 
-    it('should not remove daemon saga\'s descriptor in development', () => {
+    it("should not remove daemon saga's descriptor in development", () => {
       injectSaga('test', { saga: testSaga, mode: DAEMON });
       ejectSaga('test');
 
@@ -139,19 +135,23 @@ describe('injectors', () => {
       expect(() => injectSaga('test', { saga: testSaga })).not.toThrow();
     });
 
-    it('should validate saga\'s key', () => {
+    it("should validate saga's key", () => {
       expect(() => injectSaga('', { saga: testSaga })).toThrow();
       expect(() => injectSaga(1, { saga: testSaga })).toThrow();
     });
 
-    it('should validate saga\'s descriptor', () => {
+    it("should validate saga's descriptor", () => {
       expect(() => injectSaga('test')).toThrow();
       expect(() => injectSaga('test', { saga: 1 })).toThrow();
-      expect(() => injectSaga('test', { saga: testSaga, mode: 'testMode' })).toThrow();
+      expect(() =>
+        injectSaga('test', { saga: testSaga, mode: 'testMode' })).toThrow();
       expect(() => injectSaga('test', { saga: testSaga, mode: 1 })).toThrow();
-      expect(() => injectSaga('test', { saga: testSaga, mode: RESTART_ON_REMOUNT })).not.toThrow();
-      expect(() => injectSaga('test', { saga: testSaga, mode: DAEMON })).not.toThrow();
-      expect(() => injectSaga('test', { saga: testSaga, mode: ONCE_TILL_UNMOUNT })).not.toThrow();
+      expect(() =>
+        injectSaga('test', { saga: testSaga, mode: RESTART_ON_REMOUNT })).not.toThrow();
+      expect(() =>
+        injectSaga('test', { saga: testSaga, mode: DAEMON })).not.toThrow();
+      expect(() =>
+        injectSaga('test', { saga: testSaga, mode: ONCE_TILL_UNMOUNT })).not.toThrow();
     });
 
     it('should pass args to saga.run', () => {
@@ -201,7 +201,11 @@ describe('injectors', () => {
     it('should not cancel saga if different implementation in production', () => {
       process.env.NODE_ENV = 'production';
       const cancel = jest.fn();
-      store.injectedSagas.test = { saga: testSaga, task: { cancel }, mode: RESTART_ON_REMOUNT };
+      store.injectedSagas.test = {
+        saga: testSaga,
+        task: { cancel },
+        mode: RESTART_ON_REMOUNT,
+      };
 
       function* testSaga1() {
         yield put({ type: 'TEST', payload: 'yup' });

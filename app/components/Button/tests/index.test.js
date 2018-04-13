@@ -9,12 +9,11 @@ import Button from '../index';
 
 const handleRoute = () => {};
 const href = 'http://mxstbr.com';
-const children = (<h1>Test</h1>);
-const renderComponent = (props = {}) => mount(
-  <Button href={href} {...props}>
+const children = <h1>Test</h1>;
+const renderComponent = (props = {}) =>
+  mount(<Button href={href} {...props}>
     {children}
-  </Button>
-);
+  </Button>);
 
 describe('<Button />', () => {
   it('should render an <a> tag if no route is specified', () => {

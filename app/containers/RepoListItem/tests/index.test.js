@@ -9,11 +9,10 @@ import { IntlProvider } from 'react-intl';
 import ListItem from 'components/ListItem';
 import { RepoListItem } from '../index';
 
-const renderComponent = (props = {}) => render(
-  <IntlProvider locale="en">
+const renderComponent = (props = {}) =>
+  render(<IntlProvider locale="en">
     <RepoListItem {...props} />
-  </IntlProvider>
-);
+  </IntlProvider>);
 
 describe('<RepoListItem />', () => {
   let item;
@@ -32,9 +31,7 @@ describe('<RepoListItem />', () => {
   });
 
   it('should render a ListItem', () => {
-    const renderedComponent = shallow(
-      <RepoListItem item={item} />
-    );
+    const renderedComponent = shallow(<RepoListItem item={item} />);
     expect(renderedComponent.find(ListItem).length).toBe(1);
   });
 

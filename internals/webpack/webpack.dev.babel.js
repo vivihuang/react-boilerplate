@@ -28,12 +28,10 @@ const plugins = [
 
 if (dllPlugin) {
   glob.sync(`${dllPlugin.path}/*.dll.js`).forEach((dllPath) => {
-    plugins.push(
-      new AddAssetHtmlPlugin({
-        filepath: dllPath,
-        includeSourcemap: false,
-      })
-    );
+    plugins.push(new AddAssetHtmlPlugin({
+      filepath: dllPath,
+      includeSourcemap: false,
+    }));
   });
 }
 
@@ -74,7 +72,9 @@ module.exports = require('./webpack.base.babel')({
  */
 function dependencyHandlers() {
   // Don't do anything during the DLL Build step
-  if (process.env.BUILDING_DLL) { return []; }
+  if (process.env.BUILDING_DLL) {
+    return [];
+  }
 
   // If the package.json does not have a dllPlugin property, use the CommonsChunkPlugin
   if (!dllPlugin) {
@@ -88,7 +88,10 @@ function dependencyHandlers() {
     ];
   }
 
-  const dllPath = path.resolve(process.cwd(), dllPlugin.path || 'node_modules/react-boilerplate-dlls');
+  const dllPath = path.resolve(
+    process.cwd(),
+    dllPlugin.path || 'node_modules/react-boilerplate-dlls'
+  );
 
   /**
    * If DLLs aren't explicitly defined, we assume all production dependencies listed in package.json
@@ -111,7 +114,8 @@ function dependencyHandlers() {
   }
 
   // If DLLs are explicitly defined, we automatically create a DLLReferencePlugin for each of them.
-  const dllManifests = Object.keys(dllPlugin.dlls).map((name) => path.join(dllPath, `/${name}.json`));
+  const dllManifests = Object.keys(dllPlugin.dlls).map((name) =>
+    path.join(dllPath, `/${name}.json`));
 
   return dllManifests.map((manifestPath) => {
     if (!fs.existsSync(path)) {
