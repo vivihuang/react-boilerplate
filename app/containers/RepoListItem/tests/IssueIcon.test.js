@@ -1,12 +1,12 @@
 import React from 'react';
-import { shallow, render } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import IssueIcon from '../IssueIcon';
 
 describe('<IssueIcon />', () => {
   it('should render an <svg> tag', () => {
-    const renderedComponent = render(<IssueIcon />);
-    expect(renderedComponent.find('svg').length).toEqual(1);
+    const renderedComponent = mount(<IssueIcon />);
+    expect(renderedComponent.find('svg')).toHaveLength(1);
   });
 
   it('should have a className attribute', () => {

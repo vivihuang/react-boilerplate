@@ -1,12 +1,12 @@
 import React from 'react';
-import { shallow, render } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import RepoLink from '../RepoLink';
 
 describe('<RepoLink />', () => {
   it('should render an <a> tag', () => {
-    const renderedComponent = render(<RepoLink />);
-    expect(renderedComponent.find('a').length).toEqual(1);
+    const renderedComponent = mount(<RepoLink />);
+    expect(renderedComponent.find('a')).toHaveLength(1);
   });
 
   it('should have a className attribute', () => {

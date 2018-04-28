@@ -1,12 +1,12 @@
 import React from 'react';
-import { mount, render } from 'enzyme';
+import { mount } from 'enzyme';
 
 import A from '../A';
 
 describe('<A />', () => {
   it('should render an <a> tag', () => {
-    const renderedComponent = render(<A />);
-    expect(renderedComponent.find('a').length).toEqual(1);
+    const renderedComponent = mount(<A />);
+    expect(renderedComponent.find('a')).toHaveLength(1);
   });
 
   it('should have a className attribute', () => {

@@ -1,12 +1,12 @@
 import React from 'react';
-import { shallow, render } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import IssueLink from '../IssueLink';
 
 describe('<IssueLink />', () => {
   it('should render an <a> tag', () => {
-    const renderedComponent = render(<IssueLink />);
-    expect(renderedComponent.find('a').length).toEqual(1);
+    const renderedComponent = mount(<IssueLink />);
+    expect(renderedComponent.find('a')).toHaveLength(1);
   });
 
   it('should have a className attribute', () => {

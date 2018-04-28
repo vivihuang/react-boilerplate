@@ -1,12 +1,12 @@
 import React from 'react';
-import { mount, render } from 'enzyme';
+import { mount } from 'enzyme';
 
 import Img from '../Img';
 
 describe('<Img />', () => {
   it('should render an <img> tag', () => {
-    const renderedComponent = render(<Img src="http://example.com/test.jpg" alt="test" />);
-    expect(renderedComponent.find('img').length).toEqual(1);
+    const renderedComponent = mount(<Img src="http://example.com/test.jpg" alt="test" />);
+    expect(renderedComponent.find('img')).toHaveLength(1);
   });
 
   it('should have a className attribute', () => {
